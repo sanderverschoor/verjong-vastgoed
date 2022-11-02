@@ -14,10 +14,8 @@ class HouseController extends Controller
      */
     public function index()
     {
-
+        //
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -26,7 +24,7 @@ class HouseController extends Controller
      */
     public function create()
     {
-        //
+        return view('createHouse');
     }
 
     /**
@@ -37,7 +35,19 @@ class HouseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+     $data = $request->input();
+        $house = new House($data);
+        $house->pets_allowed = $request->has('pets_allowed');
+        $house->smoking_allowed = $request->has('smoking_allowed');
+        $house->garden = $request->has('garden');
+        $house->balcony = $request->has('balcony');
+        $house->furnished = $request->has('furnished');
+        $house->save();
+
+
+        return response($house, 200)
+            ->header('Content-Type', 'text/plain');
     }
 
     /**
