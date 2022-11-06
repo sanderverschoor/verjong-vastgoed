@@ -177,27 +177,51 @@
     <script>
 
      $(document).ready(function() {
+
+         //Jqeury loop trough all the inputs and check if they are empty except the house_number_addition
+
+
          $('.save').click(function() {
-             event.preventDefault()
-             //get the data from the form
-             var data = $('#form').serialize();
-             //make the ajax call
-             $.ajax({
-                 headers: {
-                     'X-CSRF-TOKEN': "{{csrf_token()}}",
-                 },
-                 url: "{{route('houses.store')}}",
-                 type: 'POST',
-                 enctype: 'multipart/form-data',
-                 data: data,
-                 success: function (data, xhr) {
-                     //if the data is saved successfully, show a success message
-                     console.log(data.status);
-                     if (data == 'success') {
-                         alert('Data saved successfully');
+
+             try {
+
+                 let error = 0;
+                 //add invalid class to empty fields
+                 $('input, textarea').not('.building_name').each(function () {
+                     if ($(this).val() == '' || $(this).val() == null) {
+                         $(this).addClass('border-pink-500');
+                         error++;
                      }
+                 });
+
+                 if (error > 0) {
+                     alert('Please fill in all fields');
+                     throw new Error('Please fill in all fields');
                  }
-             });
+
+                 event.preventDefault()
+                 //get the data from the form
+                 var data = $('#form').serialize();
+                 //make the ajax call
+                 $.ajax({
+                     headers: {
+                         'X-CSRF-TOKEN': "{{csrf_token()}}",
+                     },
+                     url: "{{route('houses.store')}}",
+                     type: 'POST',
+                     enctype: 'multipart/form-data',
+                     data: data,
+                     success: function (data, xhr) {
+                         //if the data is saved successfully, show a success message
+                         console.log(data.status);
+                         if (data == 'success') {
+                             alert('Data saved successfully');
+                         }
+                     }
+                 });
+             } catch (e) {
+                 console.log(e.message);
+             }
          });
      });
 
