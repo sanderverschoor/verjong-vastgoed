@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\House;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HouseController extends Controller
 {
@@ -14,7 +15,9 @@ class HouseController extends Controller
      */
     public function index()
     {
-        //
+
+        $houses = House::all();
+        return view('AllHouses', compact('houses'));
     }
 
     /**
@@ -36,14 +39,20 @@ class HouseController extends Controller
     public function store(Request $request)
     {
 
+        $image = $request->file('image');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->storeAs('public/images', $imageName);
+
      $data = $request->input();
         $house = new House($data);
+        $house->image = $imageName;
         $house->pets_allowed = $request->has('pets_allowed');
         $house->smoking_allowed = $request->has('smoking_allowed');
         $house->garden = $request->has('garden');
         $house->balcony = $request->has('balcony');
         $house->furnished = $request->has('furnished');
         $house->save();
+
 
 
         return response($house, 200)

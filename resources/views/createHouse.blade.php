@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 id="pagetitle" class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Huis toevoegen') }}
         </h2>
     </x-slot>
@@ -9,8 +9,18 @@
         <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
             <!-- Replace with your content -->
             <div class="px-4 py-6 sm:px-0">
-                <div class="rounded-lg border-2 bg-white border border-gray-100 shadow-md">
-                    <form id="form" enctype="multipart/form-data">
+                <div id="formcard" class="rounded-lg border-2 bg-white border border-gray-100 shadow-md">
+                    <div id="fileupload" class="hidden flex justify-center items-center w-full">
+                        <label for="dropzone-file" class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100  ">
+                            <div class="flex flex-col justify-center items-center pt-5 pb-6">
+                                <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                            </div>
+                            <input id="dropzone-file" type="file" class="hidden" />
+                        </label>
+                    </div>
+                    <form id="form"  enctype="multipart/form-data">
                         @csrf
                         <div class="shadow sm:overflow-hidden sm:rounded-md">
                             <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
@@ -176,10 +186,23 @@
 
     <script>
 
+
+
      $(document).ready(function() {
 
-         //Jqeury loop trough all the inputs and check if they are empty except the house_number_addition
+        function change() {
+            $( "#form" ).fadeOut(1000);
+            $("#pagetitle").html("Foto's uploaden");
+            setTimeout(fadein, 1000);
+        }
 
+
+
+        function fadein() {
+            $('#fileupload').fadeIn(1000);
+        }
+         change();
+         //Jqeury loop trough all the inputs and check if they are empty except the house_number_addition
 
          $('.save').click(function() {
 
@@ -201,7 +224,8 @@
 
                  event.preventDefault()
                  //get the data from the form
-                 var data = $('#form').serialize();
+                    let formData = new FormData($('#form')[0]);
+                 console.log(formData);
                  //make the ajax call
                  $.ajax({
                      headers: {
@@ -209,14 +233,17 @@
                      },
                      url: "{{route('houses.store')}}",
                      type: 'POST',
-                     enctype: 'multipart/form-data',
-                     data: data,
+                     data: formData,
+                     dataType: 'JSON',
+                     contentType: false,
+                     cache: false,
+                     processData: false,
                      success: function (data, xhr) {
                          //if the data is saved successfully, show a success message
-                         console.log(data.status);
-                         if (data == 'success') {
-                             alert('Data saved successfully');
-                         }
+                         console.log(data);
+                         $( "#form" ).fadeOut(1000);
+                         $( "#form" ).remove();
+
                      }
                  });
              } catch (e) {
