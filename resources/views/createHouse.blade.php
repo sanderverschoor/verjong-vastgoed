@@ -10,16 +10,28 @@
             <!-- Replace with your content -->
             <div class="px-4 py-6 sm:px-0">
                 <div id="formcard" class="rounded-lg border-2 bg-white border border-gray-100 shadow-md">
-                    <div id="fileupload" class="hidden flex justify-center items-center w-full">
-                        <label for="dropzone-file" class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100  ">
-                            <div class="flex flex-col justify-center items-center pt-5 pb-6">
-                                <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                            </div>
-                            <input id="dropzone-file" type="file" class="hidden" />
-                        </label>
+
+
+
+                    <!-- mutliple images upload-->
+                    <div class="hidden imagecard shadow sm:overflow-hidden sm:rounded-md">
+                        <div class="space-y-6 bg-white px-4 py-5 sm:p-6">
+                            <h1 class="text-2xl my-3 font-bold">Afbeeldingen voor </h1>
+                    <form action="" method="POST" id="dropzone" class="dropzone" enctype="multipart/form-data" >
+                        <div id="dropzondeshit">
+
+                        </div>
+                        @csrf
+                    </form>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 text-center sm:px-6">
+                            <button type="button"name="imageupload" id="imageupload" class="justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Opslaan</button>
+                        </div>
                     </div>
+
+
+
+
                     <form id="form"  enctype="multipart/form-data">
                         @csrf
                         <div class="shadow sm:overflow-hidden sm:rounded-md">
@@ -33,7 +45,7 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <label for="rent" class="block text-sm font-medium text-gray-700">huurprijs</label>
+                                        <label for="rent" class="block text-sm font-medium text-gray-700">huurprijs </label>
                                         <div class="mt-1 flex rounded-md shadow-sm">
                                             <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">€</span>
                                             <input type="number" name="rent" id="rent" class="block w-full flex-1  rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm invalid:border-pink-500 invalid:text-pink-600" >
@@ -183,12 +195,77 @@
             </div>
         </div>
     </main>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-
+        //dropzone
+        Dropzone.autoDiscover = false;
 
 
      $(document).ready(function() {
+
+         let house_id = '';
+
+         $("form#dropzone").dropzone({
+             url: "{{ route('upload-images') }}",
+             parallelUploads: 10,
+             maxFiles: 10,
+             uploadMultiple:true,
+             autoProcessQueue : false,
+             autoDiscover: false,
+             addRemoveLinks: true,
+             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+
+             init:function(){
+                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    var submitButton = document.querySelector("#imageupload");
+                 myDropzone = this;
+
+
+                    submitButton.addEventListener("click", function(){
+                        myDropzone.processQueue();
+                    });
+
+                 myDropzone.on("addedfile", file => {
+                     console.log("A file has been added");
+                 });
+
+                 myDropzone.on("sending", function(file,xhr,formData){
+                     formData.append("_token", CSRF_TOKEN);
+                     formData.append("house_id", house_id);
+                 });
+
+                 myDropzone.on("complete", function (file) {
+                     if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                         myDropzone.removeAllFiles();
+                     }
+                     Swal.fire({
+                         icon: 'success',
+                         title: 'Gelukt!',
+                         text: 'De afbeeldingen zijn opgeslagen!',
+                     }).then((result) => {
+                         if (result.isDismissed || result.isConfirmed) {
+                             window.location.href = "{{ route('houses.index')}}";
+                         }});
+
+
+                 });
+
+                 myDropzone.on("error", function(file, errorMessage){
+                     Swal.fire({
+                         icon: 'error',
+                         title: 'Oops...',
+                         text: 'Er is iets fout gegaan!',
+                     })
+                 });
+
+                 myDropzone.on("success", function(file, responseText){
+
+                 });
+
+             }
+         });
+
+
 
         function change() {
             $( "#form" ).fadeOut(1000);
@@ -196,12 +273,10 @@
             setTimeout(fadein, 1000);
         }
 
-
-
         function fadein() {
-            $('#fileupload').fadeIn(1000);
+            $('.imagecard').fadeIn(1000);
         }
-         change();
+
          //Jqeury loop trough all the inputs and check if they are empty except the house_number_addition
 
          $('.save').click(function() {
@@ -213,7 +288,7 @@
                  $('input, textarea').not('.building_name').each(function () {
                      if ($(this).val() == '' || $(this).val() == null) {
                          $(this).addClass('border-pink-500');
-                         error++;
+
                      }
                  });
 
@@ -240,9 +315,8 @@
                      processData: false,
                      success: function (data, xhr) {
                          //if the data is saved successfully, show a success message
-                         console.log(data);
-                         $( "#form" ).fadeOut(1000);
-                         $( "#form" ).remove();
+                         house_id = data.id;
+                         change();
 
                      }
                  });

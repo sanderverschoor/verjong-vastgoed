@@ -17,6 +17,17 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('houses.index')" :active="request()->routeIs('houses.index')">
+                        {{ __('Alle huizen') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('houses.create')" :active="request()->routeIs('houses.create')">
+                        {{ __('Huis toevoegen') }}
+                    </x-nav-link>
+                </div>
             </div>
 
 

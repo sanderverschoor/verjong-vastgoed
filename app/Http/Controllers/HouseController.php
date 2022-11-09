@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\House;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,6 +28,7 @@ class HouseController extends Controller
      */
     public function create()
     {
+
         return view('createHouse');
     }
 
@@ -103,4 +105,20 @@ class HouseController extends Controller
     {
         //
     }
+
+    public function uploadImages(Request $request)
+    {
+        foreach ($request->file('file') as $foto) {
+            $random_int = random_bytes('6');
+            $random_image = bin2hex($random_int);
+            $foto_id = $random_image.'.'.$foto->getClientOriginalExtension();
+            $foto->storeAs('public/images', $foto_id);
+           $image = new Image();
+              $image->path = $foto_id;
+                $image->house_id = $request->house_id;
+           $image->save();
+           //return ok 200
+        }
+    }
+
 }

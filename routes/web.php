@@ -17,8 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/huis-toevoegen', 'App\Http\Controllers\HouseController@create')->name('house.create');
-
+Route::post('/upload-images', [App\Http\Controllers\HouseController::class, 'uploadImages'])->name('upload-images');
 route::resource('houses', 'App\Http\Controllers\HouseController');
 
 Route::get('/dashboard', function () {

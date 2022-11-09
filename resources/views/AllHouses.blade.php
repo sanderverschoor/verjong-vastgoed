@@ -1,17 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Alle Woningen') }}
         </h2>
     </x-slot>
 
-    <div class="my-12 ml-12">
+    <div class="my-12 md:ml-12 sm:ml-4">
   <!-- Show all houses with cards -->
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-3 gap-2">
 @foreach($houses as $house)
-            <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 text-center">
+            <div class="max-w-sm bg-white col-span-1 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 text-center">
                 <a href="#">
-                    <img class="rounded-t-lg max-w-full" src="storage/images/{{$house->image}}" alt="" />
+                    <img class="rounded-t-lg  max-w-full max-h-full " src="storage/images/{{$house->image}}" alt="" />
                 </a>
                 <div class="p-5">
                     <a href="#">
