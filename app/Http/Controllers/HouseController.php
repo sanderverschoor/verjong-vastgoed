@@ -41,11 +41,15 @@ class HouseController extends Controller
     public function store(Request $request)
     {
 
-        $image = $request->file('image');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->storeAs('public/images', $imageName);
 
-     $data = $request->input();
+
+     $data = $request->all();
+
+
+
+        $imageName = time().'.'.$data['image']->getClientOriginalExtension();
+        $data['image']->move(public_path('storage/images'), $imageName);
+
         $house = new House($data);
         $house->image = $imageName;
         $house->pets_allowed = $request->has('pets_allowed');
@@ -54,6 +58,7 @@ class HouseController extends Controller
         $house->balcony = $request->has('balcony');
         $house->furnished = $request->has('furnished');
         $house->save();
+
 
 
 
@@ -69,7 +74,10 @@ class HouseController extends Controller
      */
     public function show(House $house)
     {
-        //
+
+
+        return view('house', compact('house'));
+
     }
 
     /**

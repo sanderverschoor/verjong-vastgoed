@@ -9,11 +9,13 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
+
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
         <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
         <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
         <!-- Scripts -->
+
         <script>
 
 
@@ -26,6 +28,7 @@
             }
         </script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://kit.fontawesome.com/e3e54bafc4.js" crossorigin="anonymous"></script>
         <style>
             .dropzone {
                 border: 2px dashed #8b8b8b;
@@ -53,5 +56,47 @@
             </main>
         </div>
         <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+        <script>
+            var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+            var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+            // Change the icons inside the button based on previous settings
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                themeToggleLightIcon.classList.remove('hidden');
+            } else {
+                themeToggleDarkIcon.classList.remove('hidden');
+            }
+
+            var themeToggleBtn = document.getElementById('theme-toggle');
+
+            themeToggleBtn.addEventListener('click', function() {
+
+                // toggle icons inside button
+                themeToggleDarkIcon.classList.toggle('hidden');
+                themeToggleLightIcon.classList.toggle('hidden');
+
+                // if set via local storage previously
+                if (localStorage.getItem('color-theme')) {
+                    if (localStorage.getItem('color-theme') === 'light') {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    }
+
+                    // if NOT set via local storage previously
+                } else {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    }
+                }
+
+            });
+        </script>
     </body>
 </html>

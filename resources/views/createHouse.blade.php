@@ -265,8 +265,6 @@
              }
          });
 
-
-
         function change() {
             $( "#form" ).fadeOut(1000);
             $("#pagetitle").html("Foto's uploaden");

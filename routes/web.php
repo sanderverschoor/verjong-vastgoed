@@ -19,6 +19,9 @@ Route::get('/', function () {
 
 Route::post('/upload-images', [App\Http\Controllers\HouseController::class, 'uploadImages'])->name('upload-images');
 route::resource('houses', 'App\Http\Controllers\HouseController');
+Route::get('phpmyinfo', function () {
+    phpinfo();
+})->name('phpmyinfo');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
