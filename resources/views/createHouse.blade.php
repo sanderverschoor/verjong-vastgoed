@@ -283,10 +283,9 @@
 
                  let error = 0;
                  //add invalid class to empty fields
-                 $('input, textarea').not('.building_name').each(function () {
+                 $('input, textarea').not('#building_name , #house_number_addition').each(function () {
                      if ($(this).val() == '' || $(this).val() == null) {
                          $(this).addClass('border-pink-500');
-
                      }
                  });
 
@@ -298,7 +297,6 @@
                  event.preventDefault()
                  //get the data from the form
                     let formData = new FormData($('#form')[0]);
-                 console.log(formData);
                  //make the ajax call
                  $.ajax({
                      headers: {

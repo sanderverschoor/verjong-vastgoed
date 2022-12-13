@@ -5,16 +5,16 @@
         </h2>
     </x-slot>
 
-    <div class="my-12 md:ml-12 sm:ml-4">
+    <div class="my-12 md:ml-12 sm:ml-4 md:pb-10">
   <!-- Show all houses with cards -->
         <div class="grid grid-cols-3 gap-2">
 @foreach($houses as $house)
             <div class="max-w-sm bg-white col-span-1 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 text-center">
-                <a href="#">
+                <a href="{{route('houses.show', $house)}}">
                     <img class="rounded-t-lg  max-w-full max-h-full " src="storage/images/{{$house->image}}" alt="" />
                 </a>
                 <div class="p-5">
-                    <a href="#">
+                    <a href="{{route('houses.show', $house)}}">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$house->street_name}} {{$house->house_number}}{{$house->house_number_addition}} </h5>
                     </a>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{$house->postal_code}}, {{$house->city}}</p>

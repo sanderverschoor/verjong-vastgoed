@@ -13,18 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [App\Http\Controllers\HouseController::class, 'index'])->name('home');
 
 Route::post('/upload-images', [App\Http\Controllers\HouseController::class, 'uploadImages'])->name('upload-images');
+Route::post('/send-message', [App\Http\Controllers\HouseController::class, 'sendMessage'])->name('send-message');
 route::resource('houses', 'App\Http\Controllers\HouseController');
 Route::get('phpmyinfo', function () {
     phpinfo();
 })->name('phpmyinfo');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';

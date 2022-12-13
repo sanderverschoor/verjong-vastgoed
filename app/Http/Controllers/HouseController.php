@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\HouseMessage;
 use App\Models\House;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use app\Mail\BerichtWoning;
 
 class HouseController extends Controller
 {
@@ -120,13 +123,22 @@ class HouseController extends Controller
             $random_int = random_bytes('6');
             $random_image = bin2hex($random_int);
             $foto_id = $random_image.'.'.$foto->getClientOriginalExtension();
-            $foto->storeAs('public/images', $foto_id);
+            $foto->move(public_path('storage/images'), $foto_id);
            $image = new Image();
               $image->path = $foto_id;
                 $image->house_id = $request->house_id;
            $image->save();
-           //return ok 200
         }
+    }
+
+    public function sendMessage(Request $request)
+    {
+        //function to send an email with the submitted data
+        $data = $request->all();
+        $house = House::find($data['house_id']);
+        Mail::to('info@verschoorautomatisering.nl')->send(new HouseMessage($data, $house));
+        return response($data, 200)
+            ->header('Content-Type', 'text/plain');
     }
 
 }

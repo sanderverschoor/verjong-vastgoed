@@ -37,8 +37,8 @@
             }
         </style>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body class="font-sans antialiased ">
+        <div class="bg-gray-100 min-h-screen">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -55,6 +55,8 @@
                 {{ $slot }}
             </main>
         </div>
+
+
         <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
         <script>
             var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -98,5 +100,34 @@
 
             });
         </script>
+
+
+
+        <footer class="p-4 bg-white rounded-lg shadow md:px-6 md:py-8 dark:bg-gray-900">
+            <div class="sm:flex sm:items-center sm:justify-between">
+                <a href="{{url('https://verjongvastgoed.nl/')}}" class="flex items-center mb-4 sm:mb-0">
+                    <img src="https://verjongvastgoed.prismaticdemo.site/wp-content/uploads/2022/11/Logo-Verjong-Vastgoed.png" class="mr-3 h-8" alt="Verjong Vastgoed Logo" />
+                </a>
+                <ul class="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0 dark:text-gray-400">
+                    <li>
+                        <a href="#" class="mr-4 hover:underline md:mr-6 ">Over</a>
+                    </li>
+                    <li>
+                        <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="#" class="mr-4 hover:underline md:mr-6 ">Algemene Voorwaarden</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:underline">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+            <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022 <a href="{{url('https://verjongvastgoed.nl/')}}" class="hover:underline">Verjong Vastgoed</a> - Alle rechten voorbehouden. - Made by  <a href="{{url('https://prismaticsolutions.nl/')}}" class="hover:underline">Prismatic Solutions</a></span>
+
+        </footer>
+
+
     </body>
 </html>
