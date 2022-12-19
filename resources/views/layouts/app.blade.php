@@ -110,7 +110,7 @@
                 </a>
                 <ul class="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0 dark:text-gray-400">
                     <li>
-                        <a href="#" class="mr-4 hover:underline md:mr-6 ">Over</a>
+                        <a href="{{url('https://verjongvastgoed.nl/#overons')}}" class="mr-4 hover:underline md:mr-6 ">Over</a>
                     </li>
                     <li>
                         <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
@@ -119,7 +119,7 @@
                         <a href="#" class="mr-4 hover:underline md:mr-6 ">Algemene Voorwaarden</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:underline">Contact</a>
+                        <a href="{{url('https://verjongvastgoed.nl/contact')}}" class="hover:underline">Contact</a>
                     </li>
                 </ul>
             </div>
