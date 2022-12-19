@@ -64,7 +64,7 @@
                             </div>
                         </button>
                         @else
-                            <button type="submit" class="px-4 py-2 text-black bg-yellow-300 rounded-md hover:shadow-md hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none">Kom in contact!</button>
+                           <a href="{{url('https://verjongvastgoed.nl/contact')}}" class="px-4 py-2 text-black bg-yellow-300 rounded-md hover:shadow-md hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none">Kom in contact!</a>
                         @endif
                     </x-slot>
 

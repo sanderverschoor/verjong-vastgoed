@@ -51,6 +51,9 @@
                                             <input type="number" name="rent" id="rent" class="block w-full flex-1  rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm invalid:border-pink-500 invalid:text-pink-600" >
                                         </div>
                                     </div>
+
+
+
                                 </div>
 
                                 <div>
@@ -73,8 +76,23 @@
                                             <input type="number" name="rooms" id="rooms" class="block w-full flex-1 rounded-md rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="col-span-3 md:col-span-1">
+                                        <label for="surface" class="block text-sm font-medium text-gray-700">Oppervlakte</label>
+                                        <div class="mt-1 flex rounded-md shadow-sm">
+                                            <input type="number" name="surface" id="surface" class="block w-full flex-1  rounded-l-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                            <span class="inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">m2</span>
+                                        </div>
+                                    </div>
 
+                                </div>
+                                <div class="flex items-start ">
+                                    <div class="flex h-5 items-center">
+                                        <input id="rent_with_extra_costs" name="rent_with_extra_costs" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <label for="rent_with_extra_costs" class="font-medium text-gray-700">Huurprijs inclusief gas/water/licht</label>
+                                    </div>
+                                </div>
                                 <h1 class="text-2xl my-4 font-bold">Adresgegevens</h1>
 
                                 <div class="grid grid-rows-2 grid-cols-8 md:grid-cols-6 gap-2">
