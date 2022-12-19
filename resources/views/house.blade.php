@@ -219,14 +219,14 @@
             </section>
 
         <!--section with a white background and a form to send a message to the owner of the house -->
-        <section class="bg-white dark:bg-gray-800">
+        <section class="bg-white dark:bg-gray-800" id="contact">
             <div class="items-center py-8 px-4 mx-auto max-w-screen-xl">
                 <h2  class="font-semibold text-xl my-3 font-bold underline decoration-yellow-300 underline-offset-8 decoration-4 text-gray-800 leading-tight">
                     Stuur een bericht
                 </h2>
                 <div class="grid grid-cols-6 gap-6 mt-4 sm:grid-cols-4">
                     <div class="p-6 col-span-6 bg-white rounded-lg shadow dark:bg-gray-800">
-                        <form method="POST" action="{{route('send-message')}}" id="form">
+                        <form  id="form">
                             @csrf
                             <input type="hidden" name="house_id" value="{{$house->id}}">
                             <div class="mb-4">
@@ -248,7 +248,7 @@
 
                             </div>
                             <div class="mb-4">
-                                <button type="submit" class="` px-4 py-2 text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:bg-indigo-600 focus:outline-none">Verzenden</button>
+                                <button type="button" class="send px-4 py-2 text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:bg-indigo-600 focus:outline-none">Verzenden</button>
                             </div>
                         </form>
                     </div>
@@ -295,6 +295,7 @@
                         cache: false,
                         processData: false,
                         success: function (data, xhr) {
+                            $( "#contact" ).fadeOut(1000);
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Verzonden!',

@@ -52,7 +52,7 @@ class HouseMessage extends Mailable
         return new Content(
             markdown: 'HouseMessage',
             with: [
-                'url' => 'localhost:8000/houses/' . $this->house->id,
+                'url' => 'https://aanbod.verjongvastgoed.nl/houses/' . $this->house->id,
                 'sender' => $this->sender,
                 'house' => $this->house,
             ],
