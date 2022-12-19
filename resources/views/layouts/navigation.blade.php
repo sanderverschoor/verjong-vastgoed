@@ -64,8 +64,12 @@
                             </div>
                         </button>
                         @else
+<<<<<<< HEAD
 <a href="{{url('https://verjongvastgoed.nl/contact')}}" class="px-4 py-2 text-black bg-yellow-300 rounded-md hover:shadow-md hover:bg-yellow-300 focus:bg-yellow-300 
 focus:outline-none">Kom in contact!</a>                  
+=======
+                           <a href="{{url('https://verjongvastgoed.nl/contact')}}" class="px-4 py-2 text-black bg-yellow-300 rounded-md hover:shadow-md hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none">Kom in contact!</a>
+>>>>>>> ee7f524c3880e466e61b258c060cad96aacc64d7
                         @endif
                     </x-slot>
 

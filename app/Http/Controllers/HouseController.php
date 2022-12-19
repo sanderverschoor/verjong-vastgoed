@@ -60,6 +60,7 @@ class HouseController extends Controller
         $house->garden = $request->has('garden');
         $house->balcony = $request->has('balcony');
         $house->furnished = $request->has('furnished');
+        $house->rent_with_extra_costs = $request->has('rent_with_extra_costs');
         $house->save();
 
 

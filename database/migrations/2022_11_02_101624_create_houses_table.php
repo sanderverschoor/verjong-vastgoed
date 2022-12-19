@@ -29,10 +29,13 @@ return new class extends Migration
             $table->boolean('balcony')->default(false);
             $table->text('description');
             $table->integer('rent');
+            $table->boolean('rent_with_extra_costs')->default(false);
             $table->integer('floors');
+            $table->integer('surface');
             $table->integer('rooms');
             $table->text('image')->nullable();
             $table->timestamps();
+
         });
     }
 
