@@ -12,7 +12,7 @@
                     <figure class="max-w-lg">
                     <img class="w-full dark:hidden rounded-lg" src="{{asset('storage/images/'.$house->image)}}">
                     <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">
-                        <span><i class="fa-solid fa-vector-square"></i>  {{$house->rooms}} m<sup>2</sup></span>
+                        <span><i class="fa-solid fa-vector-square"></i>  {{$house->surface}} m<sup>2</sup></span>
                         <span class="mx-2"><i class="fa-solid fa-door-open"></i> {{$house->rooms}} kamers</span>
                         <span><i class="fa-solid fa-couch"></i>
                             @if($house->furnished == 1)
@@ -99,7 +99,11 @@
                                 <b>*Inclusief gas/water/licht?</b>
                             </th>
                             <td class="py-4 px-6 bg-gray-50">
-                                Ja
+                                @if($house->rent_with_extra_costs == 1)
+                                    <b>Ja</b>
+                                @else
+                                    <b>Nee</b>
+                                @endif
                             </td>
                         </tr>
                         <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -107,7 +111,7 @@
                                 <b>Woonoppervlakte</b>
                             </th>
                             <td class="py-4 px-6 bg-gray-50">
-                                {{$house->living_area}} 75m<sup>2</sup>
+                                {{$house->surface}} m<sup>2</sup>
                             </td>
                         </tr>
                         <tr class="border-b border-gray-200 dark:border-gray-700">

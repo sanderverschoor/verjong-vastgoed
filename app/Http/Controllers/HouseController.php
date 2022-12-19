@@ -55,6 +55,7 @@ class HouseController extends Controller
 
         $house = new House($data);
         $house->image = $imageName;
+	$house->surface = $request->surface;
         $house->pets_allowed = $request->has('pets_allowed');
         $house->smoking_allowed = $request->has('smoking_allowed');
         $house->garden = $request->has('garden');
