@@ -112,7 +112,8 @@ class HouseController extends Controller
      */
     public function destroy(House $house)
     {
-        //
+        $house->delete();
+        return response(200);
     }
 
     public function uploadImages(Request $request)
